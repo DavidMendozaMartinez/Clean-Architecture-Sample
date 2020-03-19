@@ -1,7 +1,9 @@
 package com.davidmendozamartinez.clean.architecture.sample.presentation
 
-import com.davidmendozamartinez.clean.architecture.sample.framework.DeviceLocationDataSource
-import com.davidmendozamartinez.clean.architecture.sample.framework.InMemoryLocationDataSource
+import com.davidmendozamartinez.clean.architecture.sample.data.LocationRepository
+import com.davidmendozamartinez.clean.architecture.sample.domain.Location
+import com.davidmendozamartinez.clean.architecture.sample.framework.DeviceLocationDataSourceImpl
+import com.davidmendozamartinez.clean.architecture.sample.framework.InMemoryLocationDataSourceImpl
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -12,15 +14,13 @@ class MainPresenter(private val view: View) : CoroutineScope {
     }
 
     private var job: Job = SupervisorJob()
-    private val deviceLocationDataSource =
-        DeviceLocationDataSource()
-    private val inMemoryLocationDataSource =
-        InMemoryLocationDataSource()
+    private val locationRepository =
+        LocationRepository(DeviceLocationDataSourceImpl(), InMemoryLocationDataSourceImpl())
 
     init {
         launch {
             val locations = withContext(Dispatchers.IO) {
-                inMemoryLocationDataSource.getPersistedLocations()
+                locationRepository.getSavedLocations()
             }
             this@MainPresenter.view.updateItems(locations)
         }
@@ -36,11 +36,7 @@ class MainPresenter(private val view: View) : CoroutineScope {
         }
     }
 
-    private fun requestNewLocation(): List<Location> {
-        val newLocation = deviceLocationDataSource.getDeviceLocation()
-        inMemoryLocationDataSource.saveNewLocation(newLocation)
-        return inMemoryLocationDataSource.getPersistedLocations()
-    }
+    private fun requestNewLocation(): List<Location> = locationRepository.requestNewLocation()
 
     fun onDestroy() {
         job.cancel()

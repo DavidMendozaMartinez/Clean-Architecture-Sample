@@ -2,6 +2,7 @@ package com.davidmendozamartinez.clean.architecture.sample.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.davidmendozamartinez.clean.architecture.sample.domain.Location
 import com.davidmendozamartinez.clean.architecture.sample.R
 import kotlinx.android.synthetic.main.activity_main.*
 
