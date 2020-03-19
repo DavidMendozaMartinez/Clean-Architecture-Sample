@@ -1,9 +1,10 @@
-package com.davidmendozamartinez.clean.architecture.sample
+package com.davidmendozamartinez.clean.architecture.sample.presentation
 
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.davidmendozamartinez.clean.architecture.sample.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.view_location_item.view.*
 import kotlin.properties.Delegates
@@ -15,7 +16,9 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent.inflate(R.layout.view_location_item))
+        ViewHolder(
+            parent.inflate(R.layout.view_location_item)
+        )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])

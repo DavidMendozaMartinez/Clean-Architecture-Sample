@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.clean.architecture.sample
+package com.davidmendozamartinez.clean.architecture.sample.presentation
 
 import java.util.*
 

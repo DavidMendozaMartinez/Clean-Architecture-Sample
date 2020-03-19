@@ -1,14 +1,17 @@
-package com.davidmendozamartinez.clean.architecture.sample
+package com.davidmendozamartinez.clean.architecture.sample.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.davidmendozamartinez.clean.architecture.sample.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainPresenter.View {
+class MainActivity : AppCompatActivity(),
+    MainPresenter.View {
 
     lateinit var mainPresenter: MainPresenter
 
-    private val locationsAdapter = LocationsAdapter()
+    private val locationsAdapter =
+        LocationsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +19,10 @@ class MainActivity : AppCompatActivity(), MainPresenter.View {
 
         recycler.adapter = locationsAdapter
 
-        mainPresenter = MainPresenter(this)
+        mainPresenter =
+            MainPresenter(
+                this
+            )
 
         newLocationBtn.setOnClickListener {
             mainPresenter.onLocationButtonClicked()
