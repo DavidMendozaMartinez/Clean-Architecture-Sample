@@ -3,20 +3,10 @@ package com.davidmendozamartinez.clean.architecture.sample
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
-import java.util.*
-import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity(), CoroutineScope {
+class MainActivity : AppCompatActivity(), MainPresenter.View {
 
-    private lateinit var job: Job
-
-    override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Main
-
-    private val random = Random(System.currentTimeMillis())
-
-    private var savedLocations = emptyList<Location>()
+    lateinit var mainPresenter: MainPresenter
 
     private val locationsAdapter = LocationsAdapter()
 
@@ -24,33 +14,21 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        job = SupervisorJob()
-
         recycler.adapter = locationsAdapter
 
-        launch {
-            locationsAdapter.items = withContext(Dispatchers.IO) { savedLocations }
-        }
+        mainPresenter = MainPresenter(this)
 
         newLocationBtn.setOnClickListener {
-            launch {
-                val newLocations = withContext(Dispatchers.IO) { requestNewLocation() }
-                locationsAdapter.items = newLocations
-            }
+            mainPresenter.onLocationButtonClicked()
         }
     }
 
-    private fun requestNewLocation(): List<Location> {
-        val newLocation = getDeviceLocation()
-        savedLocations = savedLocations + newLocation
-        return savedLocations
+    override fun updateItems(locations: List<Location>) {
+        locationsAdapter.items = locations
     }
 
-    private fun getDeviceLocation(): Location =
-        Location(random.nextDouble() * 180 - 90, random.nextDouble() * 360 - 180, Date())
-
     override fun onDestroy() {
-        job.cancel()
+        mainPresenter.onDestroy()
         super.onDestroy()
     }
 }
