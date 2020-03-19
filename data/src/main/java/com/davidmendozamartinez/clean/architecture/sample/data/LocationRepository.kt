@@ -4,8 +4,8 @@ import com.davidmendozamartinez.clean.architecture.sample.domain.Location
 
 class LocationRepository(
     private val deviceLocationDataSource: DeviceLocationDataSource,
-    private val persistenceLocationDataSource: PersistenceLocationDataSource)
-{
+    private val persistenceLocationDataSource: PersistenceLocationDataSource
+) {
 
     fun requestNewLocation(): List<Location> {
         val newLocation = deviceLocationDataSource.getDeviceLocation()

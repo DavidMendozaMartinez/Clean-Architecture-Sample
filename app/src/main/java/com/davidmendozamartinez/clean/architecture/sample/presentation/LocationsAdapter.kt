@@ -11,7 +11,7 @@ import kotlin.properties.Delegates
 
 class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
 
-    var items: List<Location> by Delegates.observable(emptyList()) { _, _, _ ->
+    var items: List<PresentationLocation> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
 
@@ -30,11 +30,10 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
         LayoutContainer {
 
         @SuppressLint("SetTextI18n")
-        fun bind(location: Location) {
-            with(location) {
-                itemView.locationCoordinates.text =
-                    "${latitude.toPrettifiedString()} | ${longitude.toPrettifiedString()}"
-                itemView.locationDate.text = date.toPrettifiedString()
+        fun bind(presentationLocation: PresentationLocation) {
+            with(presentationLocation) {
+                itemView.locationCoordinates.text = coordinates
+                itemView.locationDate.text = date
             }
         }
     }
