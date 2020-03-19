@@ -1,6 +1,5 @@
 package com.davidmendozamartinez.clean.architecture.sample.presentation
 
-import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,6 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
         LayoutContainer {
 
-        @SuppressLint("SetTextI18n")
         fun bind(presentationLocation: PresentationLocation) {
             with(presentationLocation) {
                 itemView.locationCoordinates.text = coordinates
