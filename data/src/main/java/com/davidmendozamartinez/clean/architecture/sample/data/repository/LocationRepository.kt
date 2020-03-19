@@ -1,6 +1,8 @@
-package com.davidmendozamartinez.clean.architecture.sample.data
+package com.davidmendozamartinez.clean.architecture.sample.data.repository
 
-import com.davidmendozamartinez.clean.architecture.sample.domain.Location
+import com.davidmendozamartinez.clean.architecture.sample.data.datasource.DeviceLocationDataSource
+import com.davidmendozamartinez.clean.architecture.sample.data.datasource.PersistenceLocationDataSource
+import com.davidmendozamartinez.clean.architecture.sample.domain.model.Location
 
 class LocationRepository(
     private val deviceLocationDataSource: DeviceLocationDataSource,
@@ -14,13 +16,4 @@ class LocationRepository(
     }
 
     fun getSavedLocations(): List<Location> = persistenceLocationDataSource.getPersistedLocations()
-}
-
-interface DeviceLocationDataSource {
-    fun getDeviceLocation(): Location
-}
-
-interface PersistenceLocationDataSource {
-    fun getPersistedLocations(): List<Location>
-    fun saveNewLocation(location: Location)
 }

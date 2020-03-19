@@ -1,9 +1,11 @@
-package com.davidmendozamartinez.clean.architecture.sample.presentation
+package com.davidmendozamartinez.clean.architecture.sample.presentation.locations
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.davidmendozamartinez.clean.architecture.sample.R
+import com.davidmendozamartinez.clean.architecture.sample.presentation.inflate
+import com.davidmendozamartinez.clean.architecture.sample.presentation.model.PresentationLocation
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.view_location_item.view.*
 import kotlin.properties.Delegates

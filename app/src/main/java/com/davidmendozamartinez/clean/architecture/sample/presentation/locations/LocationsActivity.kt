@@ -1,15 +1,17 @@
-package com.davidmendozamartinez.clean.architecture.sample.presentation
+package com.davidmendozamartinez.clean.architecture.sample.presentation.locations
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.davidmendozamartinez.clean.architecture.sample.R
+import com.davidmendozamartinez.clean.architecture.sample.presentation.model.PresentationLocation
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.scope.currentScope
 import org.koin.core.parameter.parametersOf
 
-class MainActivity : AppCompatActivity(), MainPresenter.View {
+class LocationsActivity : AppCompatActivity(),
+    LocationsPresenter.View {
 
-    private val mainPresenter: MainPresenter
+    private val locationsPresenter: LocationsPresenter
             by currentScope.inject { parametersOf(this) }
 
     private val locationsAdapter = LocationsAdapter()
@@ -21,10 +23,10 @@ class MainActivity : AppCompatActivity(), MainPresenter.View {
         recycler.adapter = locationsAdapter
 
         newLocationBtn.setOnClickListener {
-            mainPresenter.onLocationButtonClicked()
+            locationsPresenter.onLocationButtonClicked()
         }
 
-        mainPresenter.onCreate()
+        locationsPresenter.onCreate()
     }
 
     override fun updateItems(locations: List<PresentationLocation>) {
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity(), MainPresenter.View {
     }
 
     override fun onDestroy() {
-        mainPresenter.onDestroy()
+        locationsPresenter.onDestroy()
         super.onDestroy()
     }
 }
